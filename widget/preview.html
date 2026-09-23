@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Widget preview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>body{margin:0;padding:12px;background:#f0f0f4;font-family:sans-serif}</style>
+</head>
+<body>
+  <div id="mount"></div>
+  <script>
+    // Query params (layout, starColor, cardsPerRow, pageSize, sort, theme, showForm) become data-* attributes.
+    var q = new URL(location.href).searchParams;
+    var el = document.createElement("div");
+    el.setAttribute("data-review-widget", "");
+    el.setAttribute("data-preview", "true");
+    ["layout", "starColor", "cardsPerRow", "pageSize", "sort", "theme", "showForm"].forEach(function (k) {
+      if (q.get(k)) el.dataset[k] = q.get(k);
+    });
+    document.getElementById("mount").appendChild(el);
+    var s = document.createElement("script");
+    s.src = "./reviews.js";
+    document.body.appendChild(s);
+  </script>
+</body>
+</html>

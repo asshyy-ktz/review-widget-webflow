@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Reviews &amp; Ratings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./panel.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Reviews &amp; Ratings</h1>
+      <p class="muted">Moderate submissions, reply to reviewers and style the widget.</p>
+    </header>
+
+    <section class="card" id="connect-card" hidden>
+      <h2>Connect</h2>
+      <p class="muted">Paste the Site ID and admin token shown after installation.</p>
+      <div class="row">
+        <input id="conn-site" placeholder="Site ID" />
+        <input id="conn-token" type="password" placeholder="Admin token" />
+        <button id="conn-save" class="btn primary">Connect</button>
+      </div>
+    </section>
+
+    <div id="main" hidden>
+      <nav class="tabs">
+        <button class="tab active" data-tab="queue">Moderation <span id="queue-count" class="pill"></span></button>
+        <button class="tab" data-tab="replies">Replies</button>
+        <button class="tab" data-tab="style">Widget style</button>
+        <button class="tab" data-tab="setup">Setup</button>
+      </nav>
+
+      <section class="pane" id="pane-queue">
+        <div class="row space">
+          <div class="seg" id="queue-filter">
+            <button class="btn active" data-filter="all">All</button>
+            <button class="btn" data-filter="flagged">Flagged</button>
+            <button class="btn" data-filter="pending">Pending</button>
+          </div>
+          <button class="btn" id="queue-refresh">Refresh</button>
+        </div>
+        <div id="queue-list"></div>
+      </section>
+
+      <section class="pane" id="pane-replies" hidden>
+        <p class="muted">One owner reply per approved review. Leave empty and save to remove a reply.</p>
+        <div id="replies-list"></div>
+      </section>
+
+      <section class="pane" id="pane-style" hidden>
+        <div class="card">
+          <h2>Presets</h2>
+          <div class="row" id="preset-buttons"></div>
+        </div>
+        <div class="card grid2">
+          <label>Layout
+            <select id="cfg-layout"><option value="list">List</option><option value="carousel">Carousel</option></select>
+          </label>
+          <label>Theme
+            <select id="cfg-theme"><option value="light">Light</option><option value="dark">Dark</option></select>
+          </label>
+          <label>Star color <input id="cfg-star" type="color" /></label>
+          <label>Cards per row <input id="cfg-cards" type="number" min="1" max="4" /></label>
+          <label>Reviews per page <input id="cfg-page" type="number" min="1" max="50" /></label>
+          <label>Default sort
+            <select id="cfg-sort"><option value="newest">Newest</option><option value="highest">Highest rated</option><option value="helpful">Most helpful</option></select>
+          </label>
+          <label class="check"><input id="cfg-form" type="checkbox" /> Show submission form</label>
+        </div>
+        <div class="row"><button class="btn primary" id="cfg-save">Save as site default</button><span id="cfg-status" class="muted"></span></div>
+        <div class="card">
+          <h2>Live preview</h2>
+          <iframe id="preview" title="Widget preview"></iframe>
+        </div>
+        <div class="card">
+          <h2>Embed snippet</h2>
+          <label>Product / CMS item ID
+            <input id="snip-product" placeholder="On a CMS template page, bind this to the item ID (see below)" />
+          </label>
+          <label class="check"><input id="snip-explicit" type="checkbox" /> Write style options into the snippet (overrides the site default)</label>
+          <code id="snippet"></code>
+          <button class="btn" id="snip-copy">Copy snippet</button>
+          <p class="muted">On a Collection page, add an Embed element, then use "Add field" in the Embed editor to insert the collection item's ID into <code class="inline">data-product-id</code> so every product page is bound to its own reviews.</p>
+        </div>
+      </section>
+
+      <section class="pane" id="pane-setup" hidden>
+        <div class="card">
+          <h2>Reviews collection</h2>
+          <p id="setup-reviews" class="muted"></p>
+          <button class="btn" id="setup-bootstrap">Create / repair Reviews collection</button>
+        </div>
+        <div class="card">
+          <h2>Product collection</h2>
+          <p class="muted">Link reviews to a collection (for example Products) with a reference field.</p>
+          <div class="row">
+            <select id="setup-products"></select>
+            <button class="btn primary" id="setup-link">Link collection</button>
+          </div>
+          <p id="setup-products-status" class="muted"></p>
+        </div>
+        <div class="card">
+          <h2>CMS sync</h2>
+          <p class="muted">Pull owner edits and deletions made in the CMS into the widget cache.</p>
+          <button class="btn" id="setup-sync">Sync from CMS now</button>
+          <p id="setup-sync-status" class="muted"></p>
+        </div>
+        <div class="card">
+          <h2>Connection</h2>
+          <p class="muted" id="setup-conn"></p>
+          <button class="btn" id="setup-disconnect">Disconnect</button>
+        </div>
+      </section>
+    </div>
+    <div id="toast" class="toast" hidden></div>
+  </div>
+  <script src="./panel.js"></script>
+</body>
+</html>
